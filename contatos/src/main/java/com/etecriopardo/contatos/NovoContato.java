@@ -6,13 +6,15 @@ package com.etecriopardo.contatos;
 
 import javax.swing.JOptionPane;
 
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  *
  * @author Etec
  */
-
 public class NovoContato extends javax.swing.JFrame {
-
+     static ArrayList<Contato> listaContatos = new ArrayList<>(); 
     /**
      * Creates new form Novo
      */
@@ -29,7 +31,7 @@ public class NovoContato extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        CategoriaGrupo = new javax.swing.ButtonGroup();
+        categoriaGrupo = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
@@ -46,6 +48,7 @@ public class NovoContato extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btAdicionar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
+        btnExibir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,7 +70,7 @@ public class NovoContato extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Categoria", 0, 0, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
-        CategoriaGrupo.add(rbtAmigo);
+        categoriaGrupo.add(rbtAmigo);
         rbtAmigo.setText("Amigo(a)");
         rbtAmigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,10 +78,10 @@ public class NovoContato extends javax.swing.JFrame {
             }
         });
 
-        CategoriaGrupo.add(rbtFamilia);
+        categoriaGrupo.add(rbtFamilia);
         rbtFamilia.setText("Família");
 
-        CategoriaGrupo.add(rbtTrabalho);
+        categoriaGrupo.add(rbtTrabalho);
         rbtTrabalho.setText("Trabalho");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -120,6 +123,14 @@ public class NovoContato extends javax.swing.JFrame {
             }
         });
 
+        btnExibir.setText("Exibir Contatos");
+        btnExibir.setToolTipText("");
+        btnExibir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExibirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -127,6 +138,8 @@ public class NovoContato extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btAdicionar)
+                .addGap(18, 18, 18)
+                .addComponent(btnExibir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
@@ -136,7 +149,9 @@ public class NovoContato extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                        .addComponent(btnExibir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -250,21 +265,42 @@ public class NovoContato extends javax.swing.JFrame {
         String telefone = txtTelefone.getText();
         String email = txtEmail.getText();
         String categoria;
-        if (rbtAmigo.isSelected()) {
-            categoria = "Amigo (a)";
-        } else if (rbtFamilia.isSelected()) {
-            categoria = "Familia";
-        } else if (rbtTrabalho.isSelected()) {
+      
+        
+        if (rbtAmigo.isSelected()){
+            categoria = "Amigo(a)";
+        } else if(rbtFamilia.isSelected()){
+            categoria = "Família";
+        } else if(rbtTrabalho.isSelected()){
             categoria = "Trabalho";
-        } else { /*Não selecionou nada. Avise o usuário com uma mensagem*/
-            JOptionPane.showMessageDialog(null, "Faltou selecionar categoria");
+        } else {
+            //NÃO SELECIONOU NADA. AVISE O USUÁRIO COM UMA MENSAGEM!
+            JOptionPane.showMessageDialog(null,"Você deve escolher uma categoria");
+            return;
         }
         
         Contato contato = new Contato(nome, telefone);
-        contato.setSobrenome(Sobrenome);
+        contato.setSobrenome(sobrenome);
+        contato.setEmail(email);
+        contato.setCategoria(categoria);
+        System.out.println(contato);
+
+        listaContatos.add(contato);
+        
+       
+        
+
+
         
         
     }//GEN-LAST:event_btAdicionarActionPerformed
+
+    private void btnExibirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExibirActionPerformed
+             for (int i=0; i<listaContatos.size();i++){
+                JOptionPane.showMessageDialog(null, listaContatos.get(i) );
+            }
+        
+    }//GEN-LAST:event_btnExibirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,9 +339,10 @@ public class NovoContato extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup CategoriaGrupo;
     private javax.swing.JButton btAdicionar;
     private javax.swing.JButton btSair;
+    private javax.swing.JButton btnExibir;
+    private javax.swing.ButtonGroup categoriaGrupo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

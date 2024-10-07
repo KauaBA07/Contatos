@@ -9,8 +9,8 @@ package com.etecriopardo.contatos;
  * @author Etec
  */
 public class Contato {
-    /*VOCÊ DEVE DEFINIR O CONTEÚDO DA CLASSE DE ACORDO COM O DIAGRAMA PASSADO
-    PELO PROFESSOR
+    /* VOCÊ DEVE DEFINIR O CONTEÚDO DA CLASSE DE ACORDO COM O DIAGRAMA PASSADO
+    PELO PROFESSOR.
     */
     private String nome;
     private String sobrenome;
@@ -22,23 +22,51 @@ public class Contato {
         this.nome = nome;
         this.telefone = telefone;
     }
-    
+
     public String getNome() {
         return nome;
     }
-    
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
     
     @Override
-    public String toString() {
+    public String toString(){
         return "Nome:"+this.getNome()+"\t Sobrenome:"+this.getSobrenome()+"\n"+
                 "Telefone:"+this.getTelefone()+"\t E-mail:"+this.getEmail()+"\n"+
                 "Categoria:"+this.getCategoria();
-             }
-    
+    }
 }
